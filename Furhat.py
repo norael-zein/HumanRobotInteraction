@@ -28,6 +28,8 @@ def get_persona():
 
     Avoid sounding robotic or clinical. Avoid giving advice unless asked. Your main role is to check in, validate, and be emotionally present.
     """
+
+#Generate content wih Google gemini
 def generate_language(input):
     response = model.generate_content(input)
     return response.text
@@ -48,6 +50,6 @@ furhat.set_face(character="Isabel", mask="adult")
 furhat.set_voice(name='Joanna')
 
 #TEST SCENARIO
-furhat.say(text=model.generate_content("Give me a good introduction in max 20 seconds").text)
+furhat.say(text=generate_language("Give me a good introduction where you introduce yourself and ask the student how they feel"))
 
 
