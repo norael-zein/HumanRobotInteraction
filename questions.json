@@ -1,0 +1,121 @@
+{
+    "introduction": [
+      {
+        "question": "Hello and welcome. How are you feeling today?",
+        "options": ["I’m feeling good", "I’m feeling bad", "I’m just okay", "I’m not sure how I feel"]
+      },
+      {
+        "question": "Which kind of emotion do you experience as of lately: positive or negative emotions?",
+        "options": ["Mostly positive", "Mostly negative", "A mix of both"]
+      },
+      {
+        "question": "Are you satisfied with your school life?",
+        "options": ["Yes, very satisfied", "Mostly satisfied", "Not satisfied", "Not satisfied, I am struggling"]
+      },
+      {
+        "question": "Are you satisfied with your private life?",
+        "options": ["Yes, very satisfied", "Mostly satisfied", "I’m just okay", "Not satisfied", "Not satisfied, I have a lot of problems."]
+      }
+    ],
+    "branch_1": [
+      {
+        "question": "What kind of activities make you happy?",
+        "options": ["Hanging out with friends", "Studying something I enjoy", "Playing sports", "Pursuing my particular hobby"]
+      },
+      {
+        "question": "How do you celebrate your achievements?",
+        "options": ["I treat myself", "I tell my friends/family", "I take a day off", "I don’t"]
+      },
+      {
+        "question": "What are your favorite ways to relax?",
+        "options": ["Listening to music, watching a movie/serie", "Doing my preferred hobby/activity", "Hanging out with family/friends", "Chilling at home"]
+      },
+      {
+        "question": "How do you stay motivated at challenging times?",
+        "options": ["I set goals", "I talk to friends/family", "I think of my past victories", "I push through it"]
+      },
+      {
+        "question": "What are you most proud of in your academic life?",
+        "options": ["Good grades", "My performance on a particular course", "Networking", "Joining/participating in clubs"]
+      },
+      {
+        "question": "How do you maintain a positive outlook on life?",
+        "options": ["I avoid negative people and thoughts", "I focus on the good stuff", "I try to pursue reasonable goals", "Religion, meditation, philosophy"]
+      },
+      {
+        "question": "How do you handle stress in a healthy way?",
+        "options": ["I exercise regularly", "Religion/praying or meditation", "Therapy or talking"]
+      },
+      {
+        "question": "What are your goals for the future?",
+        "options": ["Graduate with good grades", "Get a dream job", "Travel and explore", "Just a simple satisfying life"]
+      },
+      {
+        "question": "What makes you feel appreciated?",
+        "options": ["Getting good feedback", "Seeing my work pay off", "Quality time with my loved ones"]
+      },
+      {
+        "question": "How do you contribute to your community or help others?",
+        "options": ["I do volunteer work", "I join/organize group events", "I help my friends and closed ones"]
+      },
+      {
+        "question": "What are you looking forward to in the near future?",
+        "options": ["The relief of finishing school", "A fun weekend plan", "Finishing a course", "Meeting someone new"]
+      }
+    ],
+    "branch_2": [
+      {
+        "question": "What has been causing you the most stress lately?",
+        "options": ["A course", "Too much homework", "School - private life balance", "Student economy"]
+      },
+      {
+        "question": "How do you usually cope with negative emotions?",
+        "options": ["Comfort eating", "I try to ignore it", "I try to do activities/hobbies to get over it", "I talk to someone"]
+      },
+      {
+        "question": "What do you find most challenging about your school life?",
+        "options": ["Keeping up with the courses", "Group projects", "Exam pressure", "Getting desired grades"]
+      },
+      {
+        "question": "How do you feel about your current support system?",
+        "options": ["It is good", "It is okay", "I don't have much", "I feel alone"]
+      },
+      {
+        "question": "What are some things that make you feel overwhelmed?",
+        "options": ["Deadlines", "Exams", "Private life concerns", "Too many plans"]
+      },
+      {
+        "question": "How do you handle feelings of sadness or depression?",
+        "options": ["I cry out", "I talk with friends/family", "Therapy, or activities that help", "I don't handle it well"]
+      },
+      {
+        "question": "What do you wish you could change about your current situation?",
+        "options": ["Less school stress", "Better social life", "Studying more and harder", "Feeling happier"]
+      },
+      {
+        "question": "How do you feel about your academic performance?",
+        "options": ["I’m doing good", "I’m falling behind", "I’m really stressed", "I don't know"]
+      },
+      {
+        "question": "What are some barriers you face in achieving your goals?",
+        "options": ["Not enough time", "I don't put enough work", "I doubt myself"]
+      },
+      {
+        "question": "How do you react to failure or setbacks?",
+        "options": ["I try again later", "I get upset but move on", "I feel stuck"]
+      },
+      {
+        "question": "What are some things that make you feel anxious?",
+        "options": ["Speaking in public/class", "Meeting new people", "Deadlines and exams", "What’s next in life"]
+      },
+      {
+        "question": "How do you feel about seeking help for your mental health?",
+        "options": ["I’d try it", "I’m not sure", "I don't want to try it", "I already do"]
+      },
+      {
+        "question": "What are some small steps you can take to improve your mental health?",
+        "options": ["More social life", "Go outside more", "Sleep better", "Study enough"]
+      }
+    ]
+  }
+  
