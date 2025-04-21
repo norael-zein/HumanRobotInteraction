@@ -37,5 +37,6 @@ model = genai.GenerativeModel(
     system_instruction=persona
 )
 
+#TEST SCENARIO
 response = model.generate_content("Hello, how are you?")
 print(response.text)
