@@ -1,8 +1,9 @@
 import os
+from furhat_remote_api import FurhatRemoteAPI
 import google.generativeai as genai
 
+#Get API key for Google Gemini
 def get_key():
-    """Fetches Gemini API key from .bashrc file."""
     bashrc_path = os.path.expanduser('~/.bashrc')
     with open(bashrc_path) as f:
         for line in f:
@@ -11,6 +12,7 @@ def get_key():
                 os.environ['GEMINI_API_KEY'] = value.strip()
     return os.getenv('GEMINI_API_KEY')
 
+#Persona 
 def get_persona():
     return    """
     You are a social robot designed to support university students' mental wellbeing.
@@ -26,8 +28,11 @@ def get_persona():
 
     Avoid sounding robotic or clinical. Avoid giving advice unless asked. Your main role is to check in, validate, and be emotionally present.
     """
+def generate_language(input):
+    response = model.generate_content(input)
+    return response.text
 
-# Init
+#Configure API
 apiKey = get_key()
 genai.configure(api_key=apiKey)
 persona = get_persona()
@@ -37,5 +42,12 @@ model = genai.GenerativeModel(
     system_instruction=persona
 )
 
-response = model.generate_content("Hello, how are you?")
-print(response.text)
+#Connect Furhat
+furhat = FurhatRemoteAPI("localhost")  
+furhat.set_face(character="Isabel", mask="adult")
+furhat.set_voice(name='Joanna')
+
+#TEST SCENARIO
+furhat.say(text=model.generate_content("Give me a good introduction in max 20 seconds").text)
+
+
