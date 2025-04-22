@@ -3,7 +3,7 @@
       {
         "id": 1,
         "question": "Hello and welcome. How are you feeling today?",
-        "options": ["I’m feeling good", "I’m feeling bad", "I’m just okay", "I’m not sure how I feel"],
+        "options": ["I'm feeling good", "I'm feeling bad", "I'm just okay", "I'm not sure how I feel"],
         "scores": [3, 1, 2, 1]
       },
       {
@@ -21,7 +21,7 @@
       {
         "id": 4,
         "question": "Are you satisfied with your private life?",
-        "options": ["Yes, very satisfied", "Mostly satisfied", "I’m just okay", "Not satisfied", "Not satisfied, I have a lot of problems."],
+        "options": ["Yes, very satisfied", "Mostly satisfied", "I'm just okay", "Not satisfied", "Not satisfied, I have a lot of problems."],
         "scores": [3, 2, 1, 0, 0]
       }
     ],
@@ -35,7 +35,7 @@
       {
         "id": 2,
         "question": "How do you celebrate your achievements?",
-        "options": ["I treat myself", "I tell my friends/family", "I take a day off", "I don’t"],
+        "options": ["I treat myself", "I tell my friends/family", "I take a day off", "I don't"],
         "scores": [3, 3, 3, 1]
       },
       {
@@ -139,7 +139,7 @@
       {
         "id": 8,
         "question": "How do you feel about your academic performance?",
-        "options": ["I’m doing good", "I’m falling behind", "I’m really stressed", "I don't know"],
+        "options": ["I'm doing good", "I'm falling behind", "I'm really stressed", "I don't know"],
         "scores": [3, 1, 0, 1]
       },
       {
@@ -157,13 +157,13 @@
       {
         "id": 11,
         "question": "What are some things that make you feel anxious?",
-        "options": ["Speaking in public/class", "Meeting new people", "Deadlines and exams", "What’s next in life"],
+        "options": ["Speaking in public/class", "Meeting new people", "Deadlines and exams", "What's next in life"],
         "scores": [1, 1, 1, 1]
       },
       {
         "id": 12,
         "question": "How do you feel about seeking help for your mental health?",
-        "options": ["I’d try it", "I’m not sure", "I don't want to try it", "I already do"],
+        "options": ["I'd try it", "I'm not sure", "I don't want to try it", "I already do"],
         "scores": [3, 1, 0, 3]
       },
       {
