@@ -2,6 +2,8 @@ import os
 from furhat_remote_api import FurhatRemoteAPI
 import google.generativeai as genai
 from interview_modul import InterviewSession
+from gestures import *
+import random 
 
 #Get API key for Google Gemini
 # def get_key():
@@ -89,6 +91,23 @@ def select_answer(question_data, user_answer):
         print(f"An error occurred during LLM call or processing: {e}")
         return -1
 
+def clarification_question(question):
+    prompt = f"""
+    Given the following question: "{question}" which already has the possible answers in an options list, please generate a message to ask the user to choose from the options.
+    """
+    return model.generate_content(prompt).text.strip()
+
+def generate_response(question, answer):
+    prompt = f"""
+    Given the following question: "{question}" and the user's answer: "{answer}", please generate a supportive response. Do not include questions in the response.
+    """
+    return model.generate_content(prompt).text.strip()
+
+def generate_move_one_on():
+    prompt = f"""
+    Generate some short text for the robot to say when it is moving to the next question.
+    """
+    return model.generate_content(prompt).text.strip()
 
 #Generate content wih Google gemini
 def generate_language(input):
@@ -117,7 +136,7 @@ interview_session = InterviewSession("questions.json")
 
 # Greeting
 furhat.say(text=generate_language("Give me a good introduction where you introduce yourself"))
-furhat.gesture(name='Smile', blocking=True)
+subtle_smile()
 while True:
     # ask question
     # furhat.say(text=generate_language("How are you feeling today?"), blocking=True)
@@ -142,6 +161,7 @@ while True:
         print(f"{i + 1}. {option}")
     
     furhat.say(text=current_q['question'], blocking=True)
+    random.choice([listen_nod_response, listen_smile_response])() 
     result = furhat.listen()
     if result.message == "":
         result.message = "nothing"
@@ -152,10 +172,14 @@ while True:
         if 0 <= choice_index < len(current_q['options']):
             chosen_answer_text = current_q['options'][choice_index]
             interview_session.record_answer(chosen_answer_text)
+            furhat.say(text=generate_response(current_q['question'], chosen_answer_text), blocking=True)
+            furhat.say(text=generate_move_one_on(), blocking=True)
         elif choice_index == -1:
+            reflect()
             # No suitable option found, handle accordingly
             print("No suitable option found for the user's answer.")
-            furhat.say(text=generate_language("I didn't quite understand your answer. Could you please clarify?"), blocking=True)
+            furhat.say(text=clarification_question(current_q), blocking=True)
+            # furhat.say(text="I didn't quite understand your answer. Could you please", blocking=True)
         else:
             print("Invalid choice number.")
             

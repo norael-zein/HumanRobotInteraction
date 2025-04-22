@@ -41,7 +41,7 @@
       {
         "id": 3,
         "question": "What are your favorite ways to relax?",
-        "options": ["Listening to music, watching a movie/serie", "Doing my preferred hobby/activity", "Hanging out with family/friends", "Chilling at home"],
+        "options": ["Listening to music, watching a movie/series", "Doing my preferred hobby/activity", "Hanging out with family/friends", "Chilling at home"],
         "scores": [3, 3, 3, 2]
       },
       {
