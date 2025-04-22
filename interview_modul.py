@@ -14,7 +14,7 @@ class InterviewSession:
         choice = int(input("Your answer (choose number): "))
         self.answers[question_data['question']] = question_data['options'][choice - 1]
 
-    def run_intro(self):
+    def run_intro(self): #TODO the way we decide on the branch is only based on one question (q2) we can imporve that by scoring.
         print("\n--- Introduction ---")
         for q in self.questions['introduction']:
             self.ask_question("introduction", q)
