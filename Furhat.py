@@ -2,18 +2,19 @@ import os
 from furhat_remote_api import FurhatRemoteAPI
 import google.generativeai as genai
 from interview_modul import InterviewSession
+from gestures import * 
 
 #Get API key for Google Gemini
-# def get_key():
-#     bashrc_path = os.path.expanduser('~/.bashrc')
-#     with open(bashrc_path) as f:
-#         for line in f:
-#             if 'export GEMINI_API_KEY' in line:
-#                 _, value = line.split('=')
-#                 os.environ['GEMINI_API_KEY'] = value.strip()
-#     return os.getenv('GEMINI_API_KEY')
 def get_key():
-    return os.getenv('GEMINI_API_KEY')
+     bashrc_path = os.path.expanduser('~/.bashrc')
+     with open(bashrc_path) as f:
+         for line in f:
+             if 'export GEMINI_API_KEY' in line:
+                 _, value = line.split('=')
+                 os.environ['GEMINI_API_KEY'] = value.strip()
+     return os.getenv('GEMINI_API_KEY')
+#def get_key():
+#    return os.getenv('GEMINI_API_KEY')
 
 
 #Persona 
@@ -117,6 +118,8 @@ interview_session = InterviewSession("questions.json")
 
 # Greeting
 furhat.say(text=generate_language("Give me a good introduction where you introduce yourself"))
+subtle_smile()
+
 furhat.gesture(name='Smile', blocking=True)
 while True:
     # ask question
@@ -142,6 +145,7 @@ while True:
         print(f"{i + 1}. {option}")
     
     furhat.say(text=current_q['question'], blocking=True)
+    listen_smile_response()
     result = furhat.listen()
     if result.message == "":
         result.message = "nothing"
