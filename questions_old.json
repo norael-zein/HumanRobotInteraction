@@ -93,85 +93,84 @@
         "scores": [2, 3, 2, 3]
       }
     ],
-  "branch_2": [
-    {
-      "id": 1,
-      "question": "What has felt most challenging for you recently, and how have you been dealing with it?",
-      "options": ["A course", "Too much homework", "Balancing school and personal life", "Finances and budget"],
-      "scores": [1, 1, 1, 1]
-    },
-    {
-      "id": 2,
-      "question": "When you're feeling low, what helps you feel even a little bit better?",
-      "options": ["Doing something I enjoy", "Talking to someone", "Going outside or getting active", "Taking time alone"],
-      "scores": [3, 3, 3, 2]
-    },
-    {
-      "id": 3,
-      "question": "What helps you stay grounded when school feels overwhelming?",
-      "options": ["Planning ahead", "Talking to classmates", "Asking for help", "Taking breaks"],
-      "scores": [3, 3, 3, 2]
-    },
-    {
-      "id": 4,
-      "question": "How supported do you feel by the people around you?",
-      "options": ["Very supported", "Somewhat supported", "Not really supported", "I often feel alone"],
-      "scores": [3, 2, 1, 0]
-    },
-    {
-      "id": 5,
-      "question": "What are some signs that you're feeling overwhelmed?",
-      "options": ["Hard to focus", "Lack of motivation", "Emotional exhaustion", "Too many responsibilities"],
-      "scores": [1, 1, 1, 1]
-    },
-    {
-      "id": 6,
-      "question": "What has helped you cope with sadness or stress in the past?",
-      "options": ["Talking to someone", "Doing something meaningful", "Seeking professional help", "I'm still figuring it out"],
-      "scores": [3, 3, 3, 1]
-    },
-    {
-      "id": 7,
-      "question": "What small change would make your current situation feel a little easier?",
-      "options": ["Less school pressure", "Better routines", "More social connection", "Feeling more motivated"],
-      "scores": [2, 2, 2, 2]
-    },
-    {
-      "id": 8,
-      "question": "How do you feel about your academic progress right now?",
-      "options": ["I'm doing well", "I'm trying but it's tough", "I'm falling behind", "I'm unsure"],
-      "scores": [3, 2, 1, 1]
-    },
-    {
-      "id": 9,
-      "question": "What sometimes gets in the way of reaching your goals?",
-      "options": ["Time management", "Self-doubt", "Lack of energy or focus"],
-      "scores": [1, 1, 1]
-    },
-    {
-      "id": 10,
-      "question": "When things don’t go as planned, how do you usually respond?",
-      "options": ["I try again", "I reflect and move on", "I feel stuck"],
-      "scores": [3, 2, 1]
-    },
-    {
-      "id": 11,
-      "question": "What situations tend to make you feel anxious?",
-      "options": ["Presentations or speaking", "Meeting new people", "Deadlines or exams", "Future uncertainty"],
-      "scores": [1, 1, 1, 1]
-    },
-    {
-      "id": 12,
-      "question": "How open do you feel to asking for help with your mental health?",
-      "options": ["I already do", "I'd be willing to try", "I'm unsure", "I don't want to"],
-      "scores": [3, 3, 1, 0]
-    },
-    {
-      "id": 13,
-      "question": "What's one small thing you could do this week to take care of your mental health?",
-      "options": ["Reach out to someone", "Get better rest", "Spend time outside", "Plan my time better"],
-      "scores": [3, 3, 3, 2]
-    }
-  ]
-
+    "branch_2": [
+      {
+        "id": 1,
+        "question": "What has been causing you the most stress lately?",
+        "options": ["A course", "Too much homework", "School - private life balance", "Student economy"],
+        "scores": [1, 1, 1, 1]
+      },
+      {
+        "id": 2,
+        "question": "How do you usually cope with negative emotions?",
+        "options": ["Comfort eating", "I try to ignore it", "I try to do activities/hobbies to get over it", "I talk to someone"],
+        "scores": [1, 1, 3, 3]
+      },
+      {
+        "id": 3,
+        "question": "What do you find most challenging about your school life?",
+        "options": ["Keeping up with the courses", "Group projects", "Exam pressure", "Getting desired grades"],
+        "scores": [1, 1, 1, 1]
+      },
+      {
+        "id": 4,
+        "question": "How do you feel about your current support system?",
+        "options": ["It is good", "It is okay", "I don't have much", "I feel alone"],
+        "scores": [3, 2, 1, 0]
+      },
+      {
+        "id": 5,
+        "question": "What are some things that make you feel overwhelmed?",
+        "options": ["Deadlines", "Exams", "Private life concerns", "Too many plans"],
+        "scores": [1, 1, 1, 1]
+      },
+      {
+        "id": 6,
+        "question": "How do you handle feelings of sadness or depression?",
+        "options": ["I cry out", "I talk with friends/family", "Therapy, or activities that help", "I don't handle it well"],
+        "scores": [1, 3, 3, 0]
+      },
+      {
+        "id": 7,
+        "question": "What do you wish you could change about your current situation?",
+        "options": ["Less school stress", "Better social life", "Studying more and harder", "Feeling happier"],
+        "scores": [1, 2, 2, 2]
+      },
+      {
+        "id": 8,
+        "question": "How do you feel about your academic performance?",
+        "options": ["I'm doing good", "I'm falling behind", "I'm really stressed", "I don't know"],
+        "scores": [3, 1, 0, 1]
+      },
+      {
+        "id": 9,
+        "question": "What are some barriers you face in achieving your goals?",
+        "options": ["Not enough time", "I don't put enough work", "I doubt myself"],
+        "scores": [1, 1, 0]
+      },
+      {
+        "id": 10,
+        "question": "How do you react to failure or setbacks?",
+        "options": ["I try again later", "I get upset but move on", "I feel stuck"],
+        "scores": [3, 2, 0]
+      },
+      {
+        "id": 11,
+        "question": "What are some things that make you feel anxious?",
+        "options": ["Speaking in public/class", "Meeting new people", "Deadlines and exams", "What's next in life"],
+        "scores": [1, 1, 1, 1]
+      },
+      {
+        "id": 12,
+        "question": "How do you feel about seeking help for your mental health?",
+        "options": ["I'd try it", "I'm not sure", "I don't want to try it", "I already do"],
+        "scores": [3, 1, 0, 3]
+      },
+      {
+        "id": 13,
+        "question": "What are some small steps you can take to improve your mental health?",
+        "options": ["More social life", "Go outside more", "Sleep better", "Study enough"],
+        "scores": [3, 3, 3, 2]
+      }
+    ]
   }
