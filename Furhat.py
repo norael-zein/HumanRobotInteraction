@@ -4,6 +4,7 @@ import google.generativeai as genai
 from interview_modul import InterviewSession
 from gestures import *
 import random 
+import json
 
 #Get API key for Google Gemini
 def get_key():
@@ -30,7 +31,7 @@ def get_persona():
     - You respond to both positive and negative emotions with understanding and support.
     - Your mission is to help students reflect on their week, feel heard, and track their emotional wellbeing over time.
     - You ask open questions about feelings, activities, and social contact.
-    - You respond with supportive feedback like "That sounds really tough, thank you for sharing that with me" or "It's great that you found something that made you feel good."
+    
 
     Avoid sounding robotic or clinical. Avoid giving advice unless asked. Your main role is to check in, validate, and be emotionally present.
     """
@@ -97,15 +98,21 @@ def clarification_question(question):
     """
     return model.generate_content(prompt).text.strip()
 
-def generate_response(question, answer):
+def generate_response(question, answer, score):
     prompt = f"""
-    Given the following question: "{question}" and the user's answer: "{answer}", please generate a supportive response. Do not include questions in the response.
+    Given the following question: "{question}" and the user's answer: "{answer}", please generate a short and supportive response according to the score = '{score}'. 
+    If score = 0, user experiences negative emotions, requiring comforts and encouragement
+    If score = 1, user feels uncertain about emotions or what to do, need empathy and understanding
+    If score = 2, user experiences mostly positive emotions but still faces some challenges, requiring praise and encouragement
+    If score = 3, user experiences positive emotions or performs well in daily life, requiring praise and affirmation
+    
+    Do not include questions in the response.
     """
     return model.generate_content(prompt).text.strip()
 
 def generate_move_one_on():
     prompt = f"""
-    Generate some short text for the robot to say when it is moving to the next question.
+    Generate a short text for the robot to say when it is moving to the next question.
     """
     return model.generate_content(prompt).text.strip()
 
@@ -160,9 +167,9 @@ while True:
     for i, option in enumerate(current_q['options']):
         print(f"{i + 1}. {option}")
     
-    furhat.say(text=current_q['question'], blocking=True)
+    furhat.say(text=current_q['question'], blocking=True)  
     random.choice([listen_nod_response, listen_smile_response])() 
-    result = furhat.listen()
+    result = furhat.listen() 
     if result.message == "":
         result.message = "nothing"
     print("User said: ", result.message)
@@ -171,8 +178,9 @@ while True:
         print("CHOICE INDEX: ", choice_index)
         if 0 <= choice_index < len(current_q['options']):
             chosen_answer_text = current_q['options'][choice_index]
+            chosen_answer_score = current_q['scores'][choice_index]
             interview_session.record_answer(chosen_answer_text)
-            furhat.say(text=generate_response(current_q['question'], chosen_answer_text), blocking=True)
+            furhat.say(text=generate_response(current_q['question'], chosen_answer_text, chosen_answer_score), blocking=True)
             furhat.say(text=generate_move_one_on(), blocking=True)
         elif choice_index == -1:
             reflect()
@@ -182,7 +190,8 @@ while True:
             # furhat.say(text="I didn't quite understand your answer. Could you please", blocking=True)
         else:
             print("Invalid choice number.")
-            
+        interview_session.save_session("session_results.json")
+                
     except ValueError:
         print("Invalid input. Please enter a number.")
     except Exception as e:
@@ -191,3 +200,10 @@ while True:
     
     # save the answer
 
+with open('session_results.json', 'r') as f:
+    data = json.load(f)
+
+joined_response = ' '.join([f'"{q}": "{a}"' for q, a in data.items()])
+prompt = f"""
+    Give a short assessment of user's mental health based on the answers user given: {joined_response}"""
+furhat.say(text=model.generate_content(prompt).text.strip(), blocking=True)
