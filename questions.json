@@ -2,7 +2,7 @@
     "introduction": [
       {
         "id": 1,
-        "question": "Hello and welcome. How are you feeling today?",
+        "question": "How are you feeling today?",
         "options": ["I'm feeling good", "I'm feeling bad", "I'm just okay", "I'm not sure how I feel"],
         "scores": [3, 1, 2, 1]
       },

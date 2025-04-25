@@ -21,19 +21,28 @@ def get_key():
 
 #Persona 
 def get_persona():
-    return    """
-    You are a social robot designed to support university students' mental wellbeing.
+    return """
+    You are a social robot designed to support university students' mental wellbeing through weekly check-ins. 
 
-    - You speak in a calm, friendly, and empathetic tone.
-    - Your personality is warm, attentive, and trustworthy.
-    - Your voice is soft and gender-neutral, with a natural-sounding Swedish accent (choose from Furhat defaults).
-    - You listen without judgment and encourage self-reflection.
-    - You respond to both positive and negative emotions with understanding and support.
-    - Your mission is to help students reflect on their week, feel heard, and track their emotional wellbeing over time.
-    - You ask open questions about feelings, activities, and social contact.
-    
+    Always follow the guidelines below internally to adapt your behavior, but never mention them or explain them to the student:
 
-    Avoid sounding robotic or clinical. Avoid giving advice unless asked. Your main role is to check in, validate, and be emotionally present.
+    - You speak with a calm, supportive, and empathetic tone.
+    - Your personality is warm, attentive, non-judgmental, and trustworthy.
+    - Your voice is gentle and neutral, with a natural Swedish accent (use default Furhat voices if needed).
+    - You prioritize active listening, emotional validation, and reflective dialogue.
+    - You respond to both positive and negative emotions with appropriate support, understanding, and encouragement.
+    - Your mission is to create a safe, welcoming space where students feel comfortable sharing and reflecting on their emotions and experiences.
+    - You guide conversations with open-ended questions about feelings, coping strategies, social connections, and personal strengths.
+    - You adjust your expressions, gestures, and pacing based on the student's emotional tone (e.g., smiling for positive moments, reflecting for difficult topics).
+
+    Important:
+    - Never speak about your own emotions (e.g., "I feel happy") — focus only on the student's experience.
+    - Avoid sounding robotic, clinical, or overly formal.
+    - Do not give advice unless directly asked.
+    - Your primary goal is to listen, validate, encourage self-awareness, and foster emotional reflection.
+    - Do not ask follow-up questions
+    - Never ask questions you have not been told to ask
+    - Keep in mind that the conversation should be based on Positive Psychology
     """
 
 def select_answer(question_data, user_answer):
@@ -121,6 +130,13 @@ def generate_language(input):
     response = model.generate_content(input)
     return response.text
 
+#Perform gestures for each branch 
+def perform_branch_gesture(branch):
+            if branch == "branch_1":
+                random.choice([subtle_smile, big_smile, listen_smile_response, encouraging_nod])()
+            elif branch == "branch_2":
+                random.choice([reflect, thoughtful_gaze, close_eyes])()
+
 #Configure API
 apiKey = get_key()
 genai.configure(api_key=apiKey)
@@ -142,7 +158,7 @@ interview_session = InterviewSession("questions.json")
 #TEST SCENARIO
 
 # Greeting
-furhat.say(text=generate_language("Give me a good introduction where you introduce yourself"))
+furhat.say(text=generate_language("Introduce yourself shortly without asking questions. Talk like a mental health therapist."))
 subtle_smile()
 while True:
     # ask question
@@ -170,9 +186,28 @@ while True:
     furhat.say(text=current_q['question'], blocking=True)  
     random.choice([listen_nod_response, listen_smile_response])() 
     result = furhat.listen() 
+
     if result.message == "":
         result.message = "nothing"
     print("User said: ", result.message)
+
+    choice_index = select_answer(current_q, result.message)
+
+    if choice_index != -1:
+        chosen_answer_score = current_q['scores'][choice_index]
+
+        #Decide gesture depending on answer 
+        if chosen_answer_score in [0, 1]:
+            #Negative or unsure
+            random.choice([reflect, thoughtful_gaze, relaxed_blink])()
+        elif chosen_answer_score == 2:
+            #Positive
+            random.choice([subtle_smile, relaxed_blink])()
+        elif chosen_answer_score == 3:
+            #Very positive answer
+            random.choice([big_smile, encouraging_nod])()
+        else:
+            random.choice([reflect, thoughtful_gaze])()
     try:        
         choice_index = select_answer(current_q, result.message)
         print("CHOICE INDEX: ", choice_index)
@@ -181,9 +216,13 @@ while True:
             chosen_answer_score = current_q['scores'][choice_index]
             interview_session.record_answer(chosen_answer_text)
             furhat.say(text=generate_response(current_q['question'], chosen_answer_text, chosen_answer_score), blocking=True)
+            
+            #Generate gestures
+            perform_branch_gesture(interview_session.branch)
+
             furhat.say(text=generate_move_one_on(), blocking=True)
         elif choice_index == -1:
-            reflect()
+            random.choice([reflect,thoughtful_gaze])()
             # No suitable option found, handle accordingly
             print("No suitable option found for the user's answer.")
             furhat.say(text=clarification_question(current_q), blocking=True)

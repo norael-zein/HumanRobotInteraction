@@ -237,4 +237,110 @@ def surprise():
             }],
         "class":"furhatos.gestures.Gesture"
         })   
+    
+def thoughtful_gaze():
+    """
+    Furhat gazes thoughtfully upwards
+    """
+    furhat.gesture(body={
+        "name":"ThoughtfulGaze",
+        "frames":[
+            {
+            "time":[0, 1],
+            "persist":True,
+            "params":{
+                "LOOK_UP": 0.5,
+                "LOOK_LEFT": 0.3,
+                "BROW_UP_LEFT": 0.4,
+                "BROW_UP_RIGHT": 0.4,
+                "SMILE_CLOSED": 0.2
+                }
+            },
+            {
+            "time":[4,5],
+            "persist":False,
+            "params":{
+                "reset":True
+                }
+            }],
+        "class":"furhatos.gestures.Gesture"
+    })
 
+def relaxed_blink():
+    """
+    Furhat performs a relaxed, slow blink
+    """
+    furhat.gesture(body={
+        "name":"RelaxedBlink",
+        "frames":[
+            {
+            "time":[0,1],
+            "persist":False,
+            "params":{
+                "BLINK_LEFT": 1.0,
+                "BLINK_RIGHT": 1.0,
+                "SMILE_CLOSED": 0.3
+                }
+            },
+            {
+            "time":[0,3],
+            "persist":False,
+            "params":{
+                "reset":True
+                }
+            }],
+        "class":"furhatos.gestures.Gesture"
+    })
+
+def encouraging_nod():
+    """
+    Furhat gives a subtle, encouraging nod
+    """
+    furhat.gesture(body={
+        "name":"EncouragingNod",
+        "frames":[
+            {
+            "time":[0, 0.5],
+            "persist":False,
+            "params":{
+                "NECK_TILT": 0.7,
+                "SMILE_CLOSED": 0.5,
+                "BROW_UP_RIGHT": 0.4,
+                "BROW_UP_LEFT": 0.4
+                }
+            },
+            {
+            "time":[1.0],
+            "persist":False,
+            "params":{
+                "reset":True
+            }
+            }],
+        "class":"furhatos.gestures.Gesture"
+    })
+def compassionate_expression():
+    """
+    Furhat shows compassion and emotional presence
+    """
+    furhat.gesture(body={
+        "name":"Compassion",
+        "frames":[
+            {
+            "time":[0, 1],
+            "persist":True,
+            "params":{
+                "BROW_DOWN_LEFT": 0.3,
+                "BROW_DOWN_RIGHT": 0.3,
+                "SMILE_CLOSED": 0.2,
+                "LOOK_DOWN": 0.2
+                }
+            },
+            {
+            "time":[3,4],
+            "persist":False,
+            "params":{
+                "reset":True
+                }
+            }],
+        "class":"furhatos.gestures.Gesture"
+    })
