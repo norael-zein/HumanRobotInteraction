@@ -150,7 +150,7 @@
     },
     {
       "id": 10,
-      "question": "When things don’t go as planned, how do you usually respond?",
+      "question": "When things don't go as planned, how do you usually respond?",
       "options": ["I try again", "I reflect and move on", "I feel stuck"],
       "scores": [3, 2, 1]
     },
