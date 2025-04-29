@@ -1,7 +1,7 @@
 import os
 from furhat_remote_api import FurhatRemoteAPI
 import google.generativeai as genai
-from interview_modul import InterviewSession
+from interview_modul_old import InterviewSession
 from gestures import *
 import random 
 import json
@@ -160,7 +160,7 @@ interview_session = InterviewSession("questions.json")
 
 # Greeting
 furhat.say(text=generate_language("Introduce yourself shortly without asking questions. Talk like a mental health therapist."))
-subtle_smile()
+# subtle_smile()
 while True:
     # ask question
     # furhat.say(text=generate_language("How are you feeling today?"), blocking=True)
@@ -185,58 +185,59 @@ while True:
         print(f"{i + 1}. {option}")
     
     furhat.say(text=current_q['question'], blocking=True)  
-    random.choice([listen_nod_response, listen_smile_response])() 
+    # random.choice([listen_nod_response, listen_smile_response])() 
     result = furhat.listen() 
 
     if result.message == "":
         result.message = "nothing"
     print("User said: ", result.message)
+    interview_session.record_answer(result.message)
+    
+    # choice_index = select_answer(current_q, result.message)
 
-    choice_index = select_answer(current_q, result.message)
+    # if choice_index != -1:
+    #     chosen_answer_score = current_q['scores'][choice_index]
 
-    if choice_index != -1:
-        chosen_answer_score = current_q['scores'][choice_index]
-
-        #Decide gesture depending on answer 
-        if chosen_answer_score in [0, 1]:
-            #Negative or unsure
-            random.choice([reflect, thoughtful_gaze, relaxed_blink])()
-        elif chosen_answer_score == 2:
-            #Positive
-            random.choice([subtle_smile, relaxed_blink])()
-        elif chosen_answer_score == 3:
-            #Very positive answer
-            random.choice([big_smile, encouraging_nod])()
-        else:
-            random.choice([reflect, thoughtful_gaze])()
-    try:        
-        choice_index = select_answer(current_q, result.message)
-        print("CHOICE INDEX: ", choice_index)
-        if 0 <= choice_index < len(current_q['options']):
-            chosen_answer_text = current_q['options'][choice_index]
-            chosen_answer_score = current_q['scores'][choice_index]
-            interview_session.record_answer(chosen_answer_text)
-            furhat.say(text=generate_response(current_q['question'], chosen_answer_text, chosen_answer_score), blocking=True)
+    #     #Decide gesture depending on answer 
+    #     if chosen_answer_score in [0, 1]:
+    #         #Negative or unsure
+    #         random.choice([reflect, thoughtful_gaze, relaxed_blink])()
+    #     elif chosen_answer_score == 2:
+    #         #Positive
+    #         random.choice([subtle_smile, relaxed_blink])()
+    #     elif chosen_answer_score == 3:
+    #         #Very positive answer
+    #         random.choice([big_smile, encouraging_nod])()
+    #     else:
+    #         random.choice([reflect, thoughtful_gaze])()
+    # try:        
+    #     choice_index = select_answer(current_q, result.message)
+    #     print("CHOICE INDEX: ", choice_index)
+    #     if 0 <= choice_index < len(current_q['options']):
+    #         chosen_answer_text = current_q['options'][choice_index]
+    #         chosen_answer_score = current_q['scores'][choice_index]
+    #         interview_session.record_answer(chosen_answer_text)
+    #         furhat.say(text=generate_response(current_q['question'], chosen_answer_text, chosen_answer_score), blocking=True)
             
-            #Generate gestures
-            perform_branch_gesture(interview_session.branch)
+    #         #Generate gestures
+    #         perform_branch_gesture(interview_session.branch)
 
-            furhat.say(text=generate_move_one_on(), blocking=True)
-        elif choice_index == -1:
-            random.choice([reflect,thoughtful_gaze])()
-            # No suitable option found, handle accordingly
-            print("No suitable option found for the user's answer.")
-            furhat.say(text=clarification_question(current_q), blocking=True)
-            # furhat.say(text="I didn't quite understand your answer. Could you please", blocking=True)
-        else:
-            print("Invalid choice number.")
-        interview_session.save_session("session_results.json")
+    #         furhat.say(text=generate_move_one_on(), blocking=True)
+    #     elif choice_index == -1:
+    #         random.choice([reflect,thoughtful_gaze])()
+    #         # No suitable option found, handle accordingly
+    #         print("No suitable option found for the user's answer.")
+    #         furhat.say(text=clarification_question(current_q), blocking=True)
+    #         # furhat.say(text="I didn't quite understand your answer. Could you please", blocking=True)
+    #     else:
+    #         print("Invalid choice number.")
+    interview_session.save_session("session_results.json")
                 
-    except ValueError:
-        print("Invalid input. Please enter a number.")
-    except Exception as e:
-        print(f"An error occurred: {e}")
-        break  # Exit loop on unexpected error
+    # except ValueError:
+    #     print("Invalid input. Please enter a number.")
+    # except Exception as e:
+    #     print(f"An error occurred: {e}")
+    #     break  # Exit loop on unexpected error
     
     # save the answer
 
