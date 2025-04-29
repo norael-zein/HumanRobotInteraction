@@ -47,8 +47,3 @@ class InterviewSession:
         with open(output_file, 'w', encoding='utf-8') as f:
             json.dump(self.answers, f, indent=2, ensure_ascii=False)
         print(f"\nSession saved to {output_file}")
-
-# Removed the __main__ block as it depended on the previous structure with options.
-# You would need a new way to interact with the session, likely involving
-# getting the question string, sending it to an external system (like an LLM or user input),
-# receiving the answer text, and then calling record_answer.

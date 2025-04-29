@@ -7,16 +7,16 @@ import random
 import json
 
 #Get API key for Google Gemini
+# def get_key():
+#      bashrc_path = os.path.expanduser('~/.bashrc')
+#      with open(bashrc_path) as f:
+#          for line in f:
+#              if 'export GEMINI_API_KEY' in line:
+#                  _, value = line.split('=')
+#                  os.environ['GEMINI_API_KEY'] = value.strip()
+#      return os.getenv('GEMINI_API_KEY')
 def get_key():
-     bashrc_path = os.path.expanduser('~/.bashrc')
-     with open(bashrc_path) as f:
-         for line in f:
-             if 'export GEMINI_API_KEY' in line:
-                 _, value = line.split('=')
-                 os.environ['GEMINI_API_KEY'] = value.strip()
-     return os.getenv('GEMINI_API_KEY')
-#def get_key():
-#    return os.getenv('GEMINI_API_KEY')
+   return os.getenv('GEMINI_API_KEY')
 
 
 #Persona 
@@ -125,6 +125,19 @@ def generate_move_one_on():
     """
     return model.generate_content(prompt).text.strip()
 
+def generate_score(question, answer):
+    prompt = f"""Analyze the user's mood based on the question they were asked and their answer. Provide a score from 0 to 3, where:
+        - 0: Very negative mood/sentiment (e.g., sadness, anger, distress)
+        - 1: Somewhat negative or uncertain mood/sentiment (e.g., worry, confusion, neutrality)
+        - 2: Somewhat positive mood/sentiment (e.g., contentment, mild happiness, hopefulness)
+        - 3: Very positive mood/sentiment (e.g., joy, excitement, gratitude)
+
+        Question: "{question}"
+        User's Answer: "{answer}"
+
+        Based on the user's answer to the question, determine the most appropriate mood score (0, 1, 2, or 3). Respond with ONLY the integer score."""
+    return model.generate_content(prompt).text.strip()
+
 #Generate content wih Google gemini
 def generate_language(input):
     response = model.generate_content(input)
@@ -143,7 +156,8 @@ genai.configure(api_key=apiKey)
 persona = get_persona()
 
 model = genai.GenerativeModel(
-    "gemini-2.0-flash",
+    "gemini-2.5-flash-preview-04-17",
+    # "gemini-2.0-flash",
     system_instruction=persona
 )
 
@@ -179,65 +193,40 @@ while True:
         print("\n--- Interview Finished ---")
         break
     
-    print(f"\nQuestion: {current_q['question']}")
-    for i, option in enumerate(current_q['options']):
-        print(f"{i + 1}. {option}")
+    print(f"\nQuestion: {current_q}")
+    # for i, option in enumerate(current_q['options']):
+    #     print(f"{i + 1}. {option}")
     
-    furhat.say(text=current_q['question'], blocking=True)  
+    furhat.say(text=current_q, blocking=True)  
     random.choice([listen_nod_response, listen_smile_response])() 
     result = furhat.listen() 
 
     if result.message == "":
         result.message = "nothing"
     print("User said: ", result.message)
+    # choice_index = select_answer(current_q, result.message)
 
-    choice_index = select_answer(current_q, result.message)
-
-    if choice_index != -1:
-        chosen_answer_score = current_q['scores'][choice_index]
-
-        #Decide gesture depending on answer 
-        if chosen_answer_score in [0, 1]:
-            #Negative or unsure
-            random.choice([reflect, thoughtful_gaze, relaxed_blink])()
-        elif chosen_answer_score == 2:
-            #Positive
-            random.choice([subtle_smile, relaxed_blink])()
-        elif chosen_answer_score == 3:
-            #Very positive answer
-            random.choice([big_smile, encouraging_nod])()
-        else:
-            random.choice([reflect, thoughtful_gaze])()
-    try:        
-        choice_index = select_answer(current_q, result.message)
-        print("CHOICE INDEX: ", choice_index)
-        if 0 <= choice_index < len(current_q['options']):
-            chosen_answer_text = current_q['options'][choice_index]
-            chosen_answer_score = current_q['scores'][choice_index]
-            interview_session.record_answer(chosen_answer_text)
-            furhat.say(text=generate_response(current_q['question'], chosen_answer_text, chosen_answer_score), blocking=True)
-            
-            #Generate gestures
-            perform_branch_gesture(interview_session.branch)
-
-            furhat.say(text=generate_move_one_on(), blocking=True)
-        elif choice_index == -1:
-            random.choice([reflect,thoughtful_gaze])()
-            # No suitable option found, handle accordingly
-            print("No suitable option found for the user's answer.")
-            furhat.say(text=clarification_question(current_q), blocking=True)
-            # furhat.say(text="I didn't quite understand your answer. Could you please", blocking=True)
-        else:
-            print("Invalid choice number.")
-        interview_session.save_session("session_results.json")
-                
-    except ValueError:
-        print("Invalid input. Please enter a number.")
-    except Exception as e:
-        print(f"An error occurred: {e}")
-        break  # Exit loop on unexpected error
+    answer_score = generate_score(current_q, result.message)
+    #Decide gesture depending on answer 
+    if answer_score in [0, 1]:
+        #Negative or unsure
+        random.choice([reflect, thoughtful_gaze, relaxed_blink])()
+    elif answer_score == 2:
+        #Positive
+        random.choice([subtle_smile, relaxed_blink])()
+    elif answer_score == 3:
+        #Very positive answer
+        random.choice([big_smile, encouraging_nod])()
+    else:
+        random.choice([reflect, thoughtful_gaze])()
     
+    furhat.say(text=generate_response(current_q['question'], result.message, answer_score), blocking=True)
+    
+    furhat.say(text=generate_move_one_on(), blocking=True)
     # save the answer
+    interview_session.save_session("session_results.json")
+            
+    
 
 with open('session_results.json', 'r') as f:
     data = json.load(f)
