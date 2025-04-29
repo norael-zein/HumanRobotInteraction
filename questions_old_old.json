@@ -1,0 +1,177 @@
+{
+    "introduction": [
+      {
+        "id": 1,
+        "question": "How are you feeling today?",
+        "options": ["I'm feeling good", "I'm feeling bad", "I'm just okay", "I'm not sure how I feel"],
+        "scores": [3, 1, 2, 1]
+      },
+      {
+        "id": 2,
+        "question": "Which kind of emotion do you experience as of lately: positive or negative emotions?",
+        "options": ["Mostly positive", "Mostly negative", "A mix of both"],
+        "scores": [3, 1, 2]
+      },
+      {
+        "id": 3,
+        "question": "Are you satisfied with your school life?",
+        "options": ["Yes, very satisfied", "Mostly satisfied", "Not satisfied", "Not satisfied, I am struggling"],
+        "scores": [3, 2, 1, 0]
+      },
+      {
+        "id": 4,
+        "question": "Are you satisfied with your private life?",
+        "options": ["Yes, very satisfied", "Mostly satisfied", "I'm just okay", "Not satisfied", "Not satisfied, I have a lot of problems."],
+        "scores": [3, 2, 1, 0, 0]
+      }
+    ],
+    "branch_1": [
+      {
+        "id": 1,
+        "question": "What kind of activities make you happy?",
+        "options": ["Hanging out with friends", "Studying something I enjoy", "Playing sports", "Pursuing my particular hobby"],
+        "scores": [3, 3, 3, 3]
+      },
+      {
+        "id": 2,
+        "question": "How do you celebrate your achievements?",
+        "options": ["I treat myself", "I tell my friends/family", "I take a day off", "I don't"],
+        "scores": [3, 3, 3, 1]
+      },
+      {
+        "id": 3,
+        "question": "What are your favorite ways to relax?",
+        "options": ["Listening to music, watching a movie/series", "Doing my preferred hobby/activity", "Hanging out with family/friends", "Chilling at home"],
+        "scores": [3, 3, 3, 2]
+      },
+      {
+        "id": 4,
+        "question": "How do you stay motivated at challenging times?",
+        "options": ["I set goals", "I talk to friends/family", "I think of my past victories", "I push through it"],
+        "scores": [3, 3, 2, 2]
+      },
+      {
+        "id": 5,
+        "question": "What are you most proud of in your academic life?",
+        "options": ["Good grades", "My performance on a particular course", "Networking", "Joining/participating in clubs"],
+        "scores": [3, 3, 2, 2]
+      },
+      {
+        "id": 6,
+        "question": "How do you maintain a positive outlook on life?",
+        "options": ["I avoid negative people and thoughts", "I focus on the good stuff", "I try to pursue reasonable goals", "Religion, meditation, philosophy"],
+        "scores": [2, 3, 3, 3]
+      },
+      {
+        "id": 7,
+        "question": "How do you handle stress in a healthy way?",
+        "options": ["I exercise regularly", "Religion/praying or meditation", "Therapy or talking"],
+        "scores": [3, 3, 3]
+      },
+      {
+        "id": 8,
+        "question": "What are your goals for the future?",
+        "options": ["Graduate with good grades", "Get a dream job", "Travel and explore", "Just a simple satisfying life"],
+        "scores": [3, 3, 2, 2]
+      },
+      {
+        "id": 9,
+        "question": "What makes you feel appreciated?",
+        "options": ["Getting good feedback", "Seeing my work pay off", "Quality time with my loved ones"],
+        "scores": [3, 3, 3]
+      },
+      {
+        "id": 10,
+        "question": "How do you contribute to your community or help others?",
+        "options": ["I do volunteer work", "I join/organize group events", "I help my friends and closed ones"],
+        "scores": [3, 3, 2]
+      },
+      {
+        "id": 11,
+        "question": "What are you looking forward to in the near future?",
+        "options": ["The relief of finishing school", "A fun weekend plan", "Finishing a course", "Meeting someone new"],
+        "scores": [2, 3, 2, 3]
+      }
+    ],
+  "branch_2": [
+    {
+      "id": 1,
+      "question": "What has felt most challenging for you recently, and how have you been dealing with it?",
+      "options": ["A course", "Too much homework", "Balancing school and personal life", "Finances and budget"],
+      "scores": [1, 1, 1, 1]
+    },
+    {
+      "id": 2,
+      "question": "When you're feeling low, what helps you feel even a little bit better?",
+      "options": ["Doing something I enjoy", "Talking to someone", "Going outside or getting active", "Taking time alone"],
+      "scores": [3, 3, 3, 2]
+    },
+    {
+      "id": 3,
+      "question": "What helps you stay grounded when school feels overwhelming?",
+      "options": ["Planning ahead", "Talking to classmates", "Asking for help", "Taking breaks"],
+      "scores": [3, 3, 3, 2]
+    },
+    {
+      "id": 4,
+      "question": "How supported do you feel by the people around you?",
+      "options": ["Very supported", "Somewhat supported", "Not really supported", "I often feel alone"],
+      "scores": [3, 2, 1, 0]
+    },
+    {
+      "id": 5,
+      "question": "What are some signs that you're feeling overwhelmed?",
+      "options": ["Hard to focus", "Lack of motivation", "Emotional exhaustion", "Too many responsibilities"],
+      "scores": [1, 1, 1, 1]
+    },
+    {
+      "id": 6,
+      "question": "What has helped you cope with sadness or stress in the past?",
+      "options": ["Talking to someone", "Doing something meaningful", "Seeking professional help", "I'm still figuring it out"],
+      "scores": [3, 3, 3, 1]
+    },
+    {
+      "id": 7,
+      "question": "What small change would make your current situation feel a little easier?",
+      "options": ["Less school pressure", "Better routines", "More social connection", "Feeling more motivated"],
+      "scores": [2, 2, 2, 2]
+    },
+    {
+      "id": 8,
+      "question": "How do you feel about your academic progress right now?",
+      "options": ["I'm doing well", "I'm trying but it's tough", "I'm falling behind", "I'm unsure"],
+      "scores": [3, 2, 1, 1]
+    },
+    {
+      "id": 9,
+      "question": "What sometimes gets in the way of reaching your goals?",
+      "options": ["Time management", "Self-doubt", "Lack of energy or focus"],
+      "scores": [1, 1, 1]
+    },
+    {
+      "id": 10,
+      "question": "When things don't go as planned, how do you usually respond?",
+      "options": ["I try again", "I reflect and move on", "I feel stuck"],
+      "scores": [3, 2, 1]
+    },
+    {
+      "id": 11,
+      "question": "What situations tend to make you feel anxious?",
+      "options": ["Presentations or speaking", "Meeting new people", "Deadlines or exams", "Future uncertainty"],
+      "scores": [1, 1, 1, 1]
+    },
+    {
+      "id": 12,
+      "question": "How open do you feel to asking for help with your mental health?",
+      "options": ["I already do", "I'd be willing to try", "I'm unsure", "I don't want to"],
+      "scores": [3, 3, 1, 0]
+    },
+    {
+      "id": 13,
+      "question": "What's one small thing you could do this week to take care of your mental health?",
+      "options": ["Reach out to someone", "Get better rest", "Spend time outside", "Plan my time better"],
+      "scores": [3, 3, 3, 2]
+    }
+  ]
+
+  }
