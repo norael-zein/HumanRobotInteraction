@@ -123,11 +123,11 @@ while True:
         print("\n--- Interview Finished ---")
         break
     
-    print(f"\nQuestion: {current_q['question']}")
-    for i, option in enumerate(current_q['options']):
-        print(f"{i + 1}. {option}")
+    print(f"\nQuestion: {current_q}")
+    # for i, option in enumerate(current_q['options']):
+    #     print(f"{i + 1}. {option}")
     
-    furhat.say(text=current_q['question'], blocking=True)  
+    furhat.say(text=current_q, blocking=True)  
     # random.choice([listen_nod_response, listen_smile_response])() 
     result = furhat.listen() 
 
@@ -136,7 +136,7 @@ while True:
         
     print("User said: ", result.message)
     interview_session.record_answer(result.message)
-    furhat.say(text=generate_move_one_on(current_q['question'], result.message), blocking=True)
+    furhat.say(text=generate_move_one_on(current_q, result.message), blocking=True)
     
     # Saving answer
     interview_session.save_session("session_results.json")
