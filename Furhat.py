@@ -254,6 +254,7 @@ Based on the student's responses below, generate a short summary that:
 - Provides gentle, supportive encouragement
 - Does not diagnose or offer treatment advice
 - Avoids clinical terms like "assessment" or "mental health evaluation"
+- End the conversation with bye
 
 Student's answers: {joined_response}
 
