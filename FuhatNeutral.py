@@ -1,22 +1,22 @@
 import os
 from furhat_remote_api import FurhatRemoteAPI
 import google.generativeai as genai
-from interview_modul_old import InterviewSession
+from interview_modul import InterviewSession
 from gestures import *
 import random 
 import json
 
 #Get API key for Google Gemini
-# def get_key():
-#      bashrc_path = os.path.expanduser('~/.bashrc')
-#      with open(bashrc_path) as f:
-#          for line in f:
-#              if 'export GEMINI_API_KEY' in line:
-#                  _, value = line.split('=')
-#                  os.environ['GEMINI_API_KEY'] = value.strip()
-#      return os.getenv('GEMINI_API_KEY')
 def get_key():
-   return os.getenv('GEMINI_API_KEY')
+      bashrc_path = os.path.expanduser('~/.bashrc')
+      with open(bashrc_path) as f:
+          for line in f:
+              if 'export GEMINI_API_KEY' in line:
+                  _, value = line.split('=')
+                  os.environ['GEMINI_API_KEY'] = value.strip()
+      return os.getenv('GEMINI_API_KEY')
+#def get_key():
+#   return os.getenv('GEMINI_API_KEY')
 
 
 #Persona 
@@ -102,7 +102,19 @@ interview_session = InterviewSession("questions.json")
 #TEST SCENARIO
 
 # Greeting
-furhat.say(text=generate_language("Introduce yourself shortly without asking questions. Talk like a mental health therapist."))
+neutral_intro_prompt = """
+You are a neutral, emotionless social robot conducting a structured check-in with a university student.
+
+Generate a short spoken introduction (1–2 sentences) that:
+- States your purpose clearly and formally
+- Explains that a series of questions will follow
+- Avoids emotional language, warmth, or personal connection
+- Does not ask any questions
+
+Keep the tone robotic, even, and objective.
+"""
+furhat.say(text=generate_language(neutral_intro_prompt), blocking=True)
+
 # subtle_smile()
 while True:
     # ask question
@@ -145,6 +157,16 @@ with open('session_results.json', 'r') as f:
     data = json.load(f)
 
 joined_response = ' '.join([f'"{q}": "{a}"' for q, a in data.items()])
-prompt = f"""
-    Give a short assessment of user's mental health based on the answers user given: {joined_response}"""
-furhat.say(text=model.generate_content(prompt).text.strip(), blocking=True)
+neutral_summary_prompt = f"""
+You are a neutral, emotionless robot that has just completed a structured check-in with a university student.
+
+Based on the student's responses listed below, generate a short closing summary (2–3 sentences) that:
+- Neutrally reflects on any observable patterns or general tendencies
+- Does not express emotion, encouragement, or concern
+- Avoids therapeutic, supportive, or judgmental language
+- Does not give advice or interpretation
+- Simply summarizes observations in an objective, factual tone
+
+Student's responses: {joined_response}
+"""
+furhat.say(text=generate_language(neutral_summary_prompt), blocking=True)

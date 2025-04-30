@@ -7,16 +7,16 @@ import random
 import json
 
 #Get API key for Google Gemini
-# def get_key():
-#      bashrc_path = os.path.expanduser('~/.bashrc')
-#      with open(bashrc_path) as f:
-#          for line in f:
-#              if 'export GEMINI_API_KEY' in line:
-#                  _, value = line.split('=')
-#                  os.environ['GEMINI_API_KEY'] = value.strip()
-#      return os.getenv('GEMINI_API_KEY')
 def get_key():
-   return os.getenv('GEMINI_API_KEY')
+      bashrc_path = os.path.expanduser('~/.bashrc')
+      with open(bashrc_path) as f:
+          for line in f:
+              if 'export GEMINI_API_KEY' in line:
+                  _, value = line.split('=')
+                  os.environ['GEMINI_API_KEY'] = value.strip()
+      return os.getenv('GEMINI_API_KEY')
+#def get_key():
+#   return os.getenv('GEMINI_API_KEY')
 
 
 #Persona 
@@ -120,8 +120,16 @@ def generate_response(question, answer, score):
     return model.generate_content(prompt).text.strip()
 
 def generate_move_one_on():
-    prompt = f"""
-    Generate a short text for the robot to say when it is moving to the next question.
+    prompt = """
+    Generate a short, natural phrase (1 sentence) to smoothly transition to the next question.
+
+    It should:
+    - Not ask the next question
+    - Not suggest options or actions
+    - Not ask the user anything
+    - Be warm, calm, and brief
+
+    Examples: "Let's move on.", "Thanks for sharing. Let's continue."
     """
     return model.generate_content(prompt).text.strip()
 
@@ -172,7 +180,12 @@ interview_session = InterviewSession("questions.json")
 #TEST SCENARIO
 
 # Greeting
-furhat.say(text=generate_language("Introduce yourself shortly without asking questions. Talk like a mental health therapist."))
+intro_prompt = """
+Begin the conversation in your role as a warm, empathetic, non-judgmental social robot.
+Give a calm, welcoming introduction (2–3 sentences) that explains you're here to check in on the student's wellbeing through a few questions.
+Do not ask any questions yet.
+"""
+furhat.say(text=generate_language(intro_prompt), blocking=True)
 subtle_smile()
 while True:
     # ask question
@@ -205,6 +218,8 @@ while True:
         result.message = "nothing"
     print("User said: ", result.message)
     # choice_index = select_answer(current_q, result.message)
+    interview_session.record_answer(result.message)
+
 
     answer_score = generate_score(current_q, result.message)
     #Decide gesture depending on answer 
@@ -220,7 +235,7 @@ while True:
     else:
         random.choice([reflect, thoughtful_gaze])()
     
-    furhat.say(text=generate_response(current_q['question'], result.message, answer_score), blocking=True)
+    furhat.say(text=generate_response(current_q, result.message, answer_score), blocking=True)
     
     furhat.say(text=generate_move_one_on(), blocking=True)
     # save the answer
@@ -233,5 +248,17 @@ with open('session_results.json', 'r') as f:
 
 joined_response = ' '.join([f'"{q}": "{a}"' for q, a in data.items()])
 prompt = f"""
-    Give a short assessment of user's mental health based on the answers user given: {joined_response}"""
+You are a social robot designed to support students' mental wellbeing through reflective check-ins.
+
+Based on the student's responses below, generate a short summary that:
+- Reflects back on the overall emotional tone of their answers
+- Identifies general patterns of strengths or challenges
+- Provides gentle, supportive encouragement
+- Does not diagnose or offer treatment advice
+- Avoids clinical terms like "assessment" or "mental health evaluation"
+
+Student's answers: {joined_response}
+
+Your response should be warm, empathetic, and no longer than 4–5 sentences.
+"""
 furhat.say(text=model.generate_content(prompt).text.strip(), blocking=True)
