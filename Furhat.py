@@ -211,7 +211,7 @@ while True:
     #     print(f"{i + 1}. {option}")
     
     furhat.say(text=current_q, blocking=True)  
-    random.choice([listen_nod_response, listen_smile_response])() 
+    random.choice([relaxed_blink, encouraging_nod, listen_nod_response, listen_smile_response])() 
     result = furhat.listen() 
 
     if result.message == "":
@@ -248,8 +248,6 @@ with open('session_results.json', 'r') as f:
 
 joined_response = ' '.join([f'"{q}": "{a}"' for q, a in data.items()])
 prompt = f"""
-You are a social robot designed to support students' mental wellbeing through reflective check-ins.
-
 Based on the student's responses below, generate a short summary that:
 - Reflects back on the overall emotional tone of their answers
 - Identifies general patterns of strengths or challenges

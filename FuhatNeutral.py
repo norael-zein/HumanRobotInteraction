@@ -111,7 +111,7 @@ Generate a short spoken introduction (1–2 sentences) that:
 - Avoids emotional language, warmth, or personal connection
 - Does not ask any questions
 
-Keep the tone robotic, even, and objective.
+Keep the tone robotic, even, and objective. You are talking to the student. 
 """
 furhat.say(text=generate_language(neutral_intro_prompt), blocking=True)
 
@@ -140,7 +140,6 @@ while True:
     #     print(f"{i + 1}. {option}")
     
     furhat.say(text=current_q, blocking=True)  
-    # random.choice([listen_nod_response, listen_smile_response])() 
     result = furhat.listen() 
 
     if result.message == "":
@@ -148,9 +147,13 @@ while True:
         
     print("User said: ", result.message)
     interview_session.record_answer(result.message)
-    furhat.say(text=generate_move_one_on(current_q, result.message), blocking=True)
-    
-    # Saving answer
+    next_question = interview_session.get_current_question()
+
+    #Does not give an answer on the last question
+    if next_question is not None:
+        furhat.say(text=generate_move_one_on(current_q, result.message), blocking=True)
+
+    #Saving answer
     interview_session.save_session("session_results.json")
 
 with open('session_results.json', 'r') as f:
