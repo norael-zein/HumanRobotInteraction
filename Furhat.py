@@ -5,6 +5,9 @@ from interview_modul import InterviewSession
 from gestures import *
 import random 
 import json
+from threading import Thread
+from gaze import start_gaze_tracking  
+
 
 #Get API key for Google Gemini
 def get_key():
@@ -173,6 +176,10 @@ model = genai.GenerativeModel(
 furhat = FurhatRemoteAPI("localhost")  
 furhat.set_face(character="Isabel", mask="adult")
 furhat.set_voice(name='Joanna')
+
+#Start gaze tracking 
+gaze_thread = Thread(target=start_gaze_tracking, args=(furhat,), daemon=True)
+gaze_thread.start()
 
 # Load questions
 interview_session = InterviewSession("questions.json")
