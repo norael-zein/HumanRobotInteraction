@@ -10,16 +10,16 @@ from gaze import start_gaze_tracking
 
 
 #Get API key for Google Gemini
+# def get_key():
+#       bashrc_path = os.path.expanduser('~/.bashrc')
+#       with open(bashrc_path) as f:
+#           for line in f:
+#               if 'export GEMINI_API_KEY' in line:
+#                   _, value = line.split('=')
+#                   os.environ['GEMINI_API_KEY'] = value.strip()
+#       return os.getenv('GEMINI_API_KEY')
 def get_key():
-      bashrc_path = os.path.expanduser('~/.bashrc')
-      with open(bashrc_path) as f:
-          for line in f:
-              if 'export GEMINI_API_KEY' in line:
-                  _, value = line.split('=')
-                  os.environ['GEMINI_API_KEY'] = value.strip()
-      return os.getenv('GEMINI_API_KEY')
-#def get_key():
-#   return os.getenv('GEMINI_API_KEY')
+  return os.getenv('GEMINI_API_KEY')
 
 
 #Persona 
