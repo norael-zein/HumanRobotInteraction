@@ -1,0 +1,21 @@
+﻿Date;What is your age?;What is your gender?;Before/After;Which version of the robot were you interviewed by?;I feel: Inspired;I feel: Scared;I feel: Excited;I feel: Nervous;I feel: Enthusiastic;I feel: Distressed;I feel: Alert;I feel: Upset;I feel: Determined;I feel: Ashamed;I feel: Proud;I feel: Guilty; Subject ID
+04/05/2025 19:59:26;25;Male;Before;Version 2;1;1;1;1;2;1;1;1;2;1;3;1;BM_before
+04/05/2025 20:35:42;26;Male;Before;Version 2;4;2;5;3;5;2;3;4;2;2;3;1;AB_before
+06/05/2025 12:36:19;20;Female;Before;Version 2;4;3;5;2;3;3;3;1;4;1;2;1;FE_before
+06/05/2025 13:24:26;21;Male;Before;Version 1;4;1;2;1;3;1;3;2;1;1;5;1;ZE_before
+06/05/2025 17:28:04;22;Male;Before;Version 1;4;3;3;4;3;4;1;4;3;4;3;4;YE_before
+07/05/2025 16:25:44;24;Female;Before;Version 1;2;1;1;1;2;5;4;4;3;3;2;3;BB_before
+08/05/2025 13:01:19;21;Male;Before;Version 1;1;3;2;4;2;3;3;2;1;3;2;3;VK_before
+08/05/2025 16:16:50;24;Male;Before;Version 2;2;1;2;1;2;1;1;1;1;1;1;1;PN_before
+08/05/2025 16:26:45;25;Female;Before;Version 1;2;4;3;4;3;3;4;3;4;2;3;2;AA_Before
+11/05/2025 14:57:55;25;Female;Before;Version 2;2;1;2;2;2;3;2;3;3;1;2;1;AL_before
+04/05/2025 20:10:21;25;Male;After;Version 2;2;1;1;1;2;1;1;1;2;1;3;1;BM_after
+04/05/2025 20:43:32;26;Male;After;Version 2;4;2;5;2;5;2;3;2;2;1;4;2;AB_after
+06/05/2025 12:55:26;20;Female;After;Version 2;4;2;3;2;3;2;2;1;4;1;3;1;FE_after
+06/05/2025 13:44:46;21;Male;After;Version 1;2;5;1;2;2;2;3;4;1;1;5;1;ZE_after
+06/05/2025 17:43:08;22;Male;After;Version 1;3;2;4;4;3;3;2;3;4;3;3;3;YE_after
+07/05/2025 16:37:34;24;Female;After;Version 1;1;1;1;1;1;5;2;2;1;2;1;2;BB_after
+08/05/2025 13:21:44;21;Male;After;Version 1;2;3;2;3;2;3;2;3;2;2;1;2;VK_after
+08/05/2025 16:31:02;24;Male;After;Version 2;1;1;1;2;1;1;3;4;1;2;1;2;PN_after
+08/05/2025 16:47:40;25;Female;After;Version 1;3;3;2;3;2;3;2;3;3;2;3;1;AA_after
+11/05/2025 15:14:51;25;Female;After;Version 2;4;2;3;1;3;1;2;1;4;1;4;1;AL_after
