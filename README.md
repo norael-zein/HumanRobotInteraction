@@ -1,0 +1,1 @@
+This project investigates whether an emotionally adaptive social robot can support university students in developing emotional awareness and affect consciousness to improve overall well-being. The robot, built using the **Furhat SDK** and **Google Gemini**, conducts weekly check-ins, adapting its interaction style based on the student's emotional state.
