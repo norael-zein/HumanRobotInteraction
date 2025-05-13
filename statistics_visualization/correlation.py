@@ -1,7 +1,9 @@
 import pandas as pd
 import seaborn as sns
 import matplotlib.pyplot as plt
-
+"""
+Correlations betwee mood changes within each group
+"""
 #Load data
 df = pd.read_csv("data.csv", sep=';')
 df.rename(columns={" Subject ID": "Subject ID"}, inplace=True)
