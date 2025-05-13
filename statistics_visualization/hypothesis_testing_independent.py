@@ -1,67 +1,75 @@
-###Independent Samples T-Test###
-
 """"
 We are here looking for: Is the difference in group average moods significant
 For example, is this statistically significant: “Is the average change in mood (e.g., Excited) different between people who interacted with Robot Version 1 and those who interacted with Version 2?
 """
+
 import pandas as pd
 from scipy.stats import ttest_ind, shapiro, levene, mannwhitneyu
 
-#Read data
-df = pd.read_csv("emotion_differences.csv")
-mood_cols = [col for col in df.columns if col.endswith("_diff")]
+df = pd.read_csv("data.csv", sep=';')
+df.rename(columns={" Subject ID": "Subject ID"}, inplace=True)
 
-#Results
-results = []
+#Clean and prepare base IDs
+df["Subject ID"] = df["Subject ID"].str.strip()
+df["Base ID"] = df["Subject ID"].str.replace(r"_before|_after", "", regex=True)
+df["Before/After"] = df["Before/After"].str.strip()
 
-#Loop over all moods
+#Separate before and after
+before_df = df[df["Before/After"] == "Before"].set_index("Base ID")
+after_df = df[df["Before/After"] == "After"].set_index("Base ID")
+
+#Match participants who completed both before and after
+common_ids = before_df.index.intersection(after_df.index)
+before_df = before_df.loc[common_ids]
+after_df = after_df.loc[common_ids]
+
+#Identify mood-related columns
+mood_cols = [col for col in df.columns if col.startswith("I feel:")]
+
+#Calculate mood change (after - before)
+diff_df = after_df[mood_cols] - before_df[mood_cols]
+diff_df["Version"] = before_df["Which version of the robot were you interviewed by?"]
+
+# Perform t-tests with assumption checks per mood
+from scipy.stats import ttest_ind, shapiro, levene, mannwhitneyu
+
+test_results = []
+
 for mood_col in mood_cols:
-    mood = mood_col.replace("I feel: ", "").replace("_diff", "").strip()
-    groupA = df[df["Which version of the robot were you interviewed by?"] == "Version 1"][mood_col].dropna()
-    groupB = df[df["Which version of the robot were you interviewed by?"] == "Version 2"][mood_col].dropna()
+    mood = mood_col.replace("I feel: ", "").strip()
+    group1 = diff_df[diff_df["Version"] == "Version 1"][mood_col].dropna()
+    group2 = diff_df[diff_df["Version"] == "Version 2"][mood_col].dropna()
 
-    #If any group is empty
-    if len(groupA) == 0 or len(groupB) == 0:
+    if len(group1) == 0 or len(group2) == 0:
         continue
 
-    #Check that we do not have any constant data
-    if groupA.nunique() <= 1 or groupB.nunique() <= 1:
-        shapiro_pA = shapiro_pB = 0.0
-        levene_p = 0.0
-        test_name = "N/A (constant values)"
-        stat, p_val = 0.0, 1.0
+    #Normality tests
+    shapiro_1 = shapiro(group1)
+    shapiro_2 = shapiro(group2)
+
+    #Homogeneity of variances
+    levene_p = levene(group1, group2).pvalue
+
+    #Choose appropriate test
+    if shapiro_1.pvalue > 0.05 and shapiro_2.pvalue > 0.05 and levene_p > 0.05:
+        stat, p = ttest_ind(group1, group2)
+        test_used = "T-test"
     else:
-        #Nomality values (Shapiro-Wilk test)
-        shapiro_A = shapiro(groupA)
-        shapiro_B = shapiro(groupB)
-        #Homogenity of variance (Levene's test)
-        levene_test = levene(groupA, groupB)
+        stat, p = mannwhitneyu(group1, group2)
+        test_used = "Mann-Whitney"
 
-        shapiro_pA = shapiro_A.pvalue
-        shapiro_pB = shapiro_B.pvalue
-        levene_p = levene_test.pvalue
-
-        #If both groups are normal (p>0.5) and variances are equal, proceed with t-test
-        if shapiro_pA > 0.05 and shapiro_pB > 0.05 and levene_p > 0.05:
-            test_name = "T-test"
-            stat, p_val = ttest_ind(groupA, groupB)
-        else:
-            test_name = "Mann-Whitney"
-            stat, p_val = mannwhitneyu(groupA, groupB)
-
-    results.append({
+    test_results.append({
         "Mood": mood,
-        "Shapiro V1 p": round(shapiro_pA, 3),
-        "Shapiro V2 p": round(shapiro_pB, 3),
+        "Mean Change V1": group1.mean(),
+        "Mean Change V2": group2.mean(),
+        "Shapiro V1 p": round(shapiro_1.pvalue, 3),
+        "Shapiro V2 p": round(shapiro_2.pvalue, 3),
         "Levene p": round(levene_p, 3),
-        "Test": test_name,
-        "Stat": round(stat, 3),
-        "p-value": round(p_val, 3)
+        "Test Used": test_used,
+        "Statistic": round(stat, 3),
+        "p-value": round(p, 3)
     })
 
-results_df = pd.DataFrame(results)
+results_df = pd.DataFrame(test_results)
 
-print("\nSignificant differences (p < 0.05):")
-print(results_df[results_df["p-value"] < 0.05])
-print("\nInsignificant differences (p > 0.05):")
-print(results_df[results_df["p-value"]> 0.5])
+print(results_df)
