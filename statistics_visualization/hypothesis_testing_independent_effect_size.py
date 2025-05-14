@@ -25,10 +25,21 @@ diff_df["Version"] = before_df["Which version of the robot were you interviewed 
 
 #Cohen function
 def cohen_d(x, y):
+    #Parametric effect size
     nx = len(x)
     ny = len(y)
     pooled_std = np.sqrt(((nx - 1) * x.std(ddof=1)**2 + (ny - 1) * y.std(ddof=1)**2) / (nx + ny - 2))
     return (x.mean() - y.mean()) / pooled_std
+
+def cliffs_delta(x, y):
+    #Non-parametric effect-size
+    x = np.array(x)
+    y = np.array(y)
+    nx = len(x)
+    ny = len(y)
+    greater = sum(xi > yi for xi in x for yi in y)
+    less = sum(xi < yi for xi in x for yi in y)
+    return (greater - less) / (nx * ny)
 
 #Run tests 
 test_results = []
@@ -52,7 +63,7 @@ for mood_col in mood_cols:
     else:
         stat, p = mannwhitneyu(group1, group2)
         test_used = "Mann-Whitney"
-        d = np.nan
+        d = cliffs_delta(group1, group2)
 
     test_results.append({
         "Mood": mood,
@@ -64,7 +75,7 @@ for mood_col in mood_cols:
         "Test Used": test_used,
         "Statistic": round(stat, 3),
         "p-value": round(p, 3),
-        "Cohen's d": round(d, 3) if not np.isnan(d) else "N/A"
+        "Cohen's d/Cliff's delta": round(d, 3) #if not np.isnan(d) else "N/A"
     })
 
 #Results
