@@ -1,38 +1,36 @@
-""""
-We are here looking for: Is the difference in group average moods significant
-For example, is this statistically significant: “Is the average change in mood (e.g., Excited) different between people who interacted with Robot Version 1 and those who interacted with Version 2?
-"""
-
 import pandas as pd
+import numpy as np
 from scipy.stats import ttest_ind, shapiro, levene, mannwhitneyu
 
+#Read data
 df = pd.read_csv("data.csv", sep=';')
-df.rename(columns={" Subject ID": "Subject ID"}, inplace=True)
 
-#Clean and prepare base IDs
+df.rename(columns={" Subject ID": "Subject ID"}, inplace=True)
 df["Subject ID"] = df["Subject ID"].str.strip()
 df["Base ID"] = df["Subject ID"].str.replace(r"_before|_after", "", regex=True)
 df["Before/After"] = df["Before/After"].str.strip()
 
-#Separate before and after
 before_df = df[df["Before/After"] == "Before"].set_index("Base ID")
 after_df = df[df["Before/After"] == "After"].set_index("Base ID")
 
-#Match participants who completed both before and after
 common_ids = before_df.index.intersection(after_df.index)
 before_df = before_df.loc[common_ids]
 after_df = after_df.loc[common_ids]
 
-#Identify mood-related columns
 mood_cols = [col for col in df.columns if col.startswith("I feel:")]
 
-#Calculate mood change (after - before)
+#Calculate difference
 diff_df = after_df[mood_cols] - before_df[mood_cols]
 diff_df["Version"] = before_df["Which version of the robot were you interviewed by?"]
 
-# Perform t-tests with assumption checks per mood
-from scipy.stats import ttest_ind, shapiro, levene, mannwhitneyu
+#Cohen function
+def cohen_d(x, y):
+    nx = len(x)
+    ny = len(y)
+    pooled_std = np.sqrt(((nx - 1) * x.std(ddof=1)**2 + (ny - 1) * y.std(ddof=1)**2) / (nx + ny - 2))
+    return (x.mean() - y.mean()) / pooled_std
 
+#Run tests 
 test_results = []
 
 for mood_col in mood_cols:
@@ -43,20 +41,18 @@ for mood_col in mood_cols:
     if len(group1) == 0 or len(group2) == 0:
         continue
 
-    #Normality tests
     shapiro_1 = shapiro(group1)
     shapiro_2 = shapiro(group2)
-
-    #Homogeneity of variances
     levene_p = levene(group1, group2).pvalue
 
-    #Choose appropriate test
     if shapiro_1.pvalue > 0.05 and shapiro_2.pvalue > 0.05 and levene_p > 0.05:
         stat, p = ttest_ind(group1, group2)
         test_used = "T-test"
+        d = cohen_d(group1, group2)
     else:
         stat, p = mannwhitneyu(group1, group2)
         test_used = "Mann-Whitney"
+        d = np.nan
 
     test_results.append({
         "Mood": mood,
@@ -67,9 +63,10 @@ for mood_col in mood_cols:
         "Levene p": round(levene_p, 3),
         "Test Used": test_used,
         "Statistic": round(stat, 3),
-        "p-value": round(p, 3)
+        "p-value": round(p, 3),
+        "Cohen's d": round(d, 3) if not np.isnan(d) else "N/A"
     })
 
+#Results
 results_df = pd.DataFrame(test_results)
-
 print(results_df)
