@@ -3,30 +3,28 @@ import matplotlib.pyplot as plt
 import seaborn as sns
 import numpy as np
 
-# Läs in och förbered data
+#Read data
 df = pd.read_csv("data.csv", sep=';')
 df.rename(columns={" Subject ID": "Subject ID"}, inplace=True)
 df["Subject ID"] = df["Subject ID"].str.strip()
 df["Base ID"] = df["Subject ID"].str.replace(r"_before|_after", "", regex=True)
 df["Before/After"] = df["Before/After"].str.strip()
 
-# Separera Before/After
 before = df[df["Before/After"] == "Before"].set_index("Base ID")
 after = df[df["Before/After"] == "After"].set_index("Base ID")
 common_ids = before.index.intersection(after.index)
 before = before.loc[common_ids]
 after = after.loc[common_ids]
 
-# Välj mood-kolumner
+#Select moods
 mood_cols = [col for col in df.columns if col.startswith("I feel:")]
 
-# Räkna skillnader
+#Calculate difference
 change = after[mood_cols] - before[mood_cols]
 change["Version"] = before["Which version of the robot were you interviewed by?"]
 change["Gender"] = before["What is your gender?"]
 change = change.reset_index()
 
-# Gör lång format
 df_long_gender = change.melt(
     id_vars=["Base ID", "Version", "Gender"],
     value_vars=mood_cols,
@@ -35,7 +33,6 @@ df_long_gender = change.melt(
 )
 df_long_gender["Mood"] = df_long_gender["Mood"].str.replace("I feel: ", "").str.strip()
 
-# Funktion för att plotta
 def plot_mood_change_by_gender(data, version, gender):
     subset = data[(data["Version"] == version) & (data["Gender"] == gender)]
     if subset.empty:
@@ -59,7 +56,7 @@ def plot_mood_change_by_gender(data, version, gender):
     plt.tight_layout()
     plt.show()
 
-# Generera grafer
+#Graphs
 for version in df_long_gender["Version"].dropna().unique():
     for gender in df_long_gender["Gender"].dropna().unique():
         plot_mood_change_by_gender(df_long_gender, version, gender)
