@@ -49,7 +49,7 @@ def plot_mood_change_by_gender(data, version, gender):
         ci=None
     )
     plt.axhline(0, color='black', linestyle='--')
-    plt.title(f"Mood Change — {gender} — {version}")
+    plt.title(f"Average mood Change — {gender} — {version}")
     plt.ylabel("Mean Mood Change (After - Before)")
     plt.xticks(rotation=45, ha='right')
     for bar in ax.patches:
