@@ -5,7 +5,6 @@ import time
 # Create an instance of the FurhatRemoteAPI class, providing the address of the robot or the SDK running the virtual robot
 furhat = FurhatRemoteAPI("localhost")
 
-
 """
 Gestures made by Furhat during the interaction with the user .
 Documentation: https://docs.furhat.io/remote-api/#furhatgestures 

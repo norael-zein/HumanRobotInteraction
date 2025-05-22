@@ -15,8 +15,6 @@ def get_key():
                   _, value = line.split('=')
                   os.environ['GEMINI_API_KEY'] = value.strip()
       return os.getenv('GEMINI_API_KEY')
-#def get_key():
-#   return os.getenv('GEMINI_API_KEY')
 
 
 #Persona 
@@ -39,19 +37,6 @@ def get_persona():
     - Focus solely on completing the list of questions in sequence.
     """
 
-
-# def generate_response(question, answer, score):
-#     prompt = f"""
-#     Given the following question: "{question}" and the user's answer: "{answer}", please generate a short and supportive response according to the score = '{score}'. 
-#     If score = 0, user experiences negative emotions, requiring comforts and encouragement
-#     If score = 1, user feels uncertain about emotions or what to do, need empathy and understanding
-#     If score = 2, user experiences mostly positive emotions but still faces some challenges, requiring praise and encouragement
-#     If score = 3, user experiences positive emotions or performs well in daily life, requiring praise and affirmation
-    
-#     Do not include questions in the response.
-#     """
-#     return model.generate_content(prompt).text.strip()
-
 def generate_move_one_on(prev_question, prev_answer):
     prompt = f"""
         You are a neutral robot conducting a structured check-in. The user has just answered the previous question.
@@ -67,13 +52,6 @@ def generate_move_one_on(prev_question, prev_answer):
         Only generate the transition text. Do not ask the next question.
         """
     return model.generate_content(prompt).text.strip()
-
-
-# def generate_move_one_on(prev_question, prev_answer):
-#     prompt = f"""
-#     Generate a short text for the robot to say when it is moving to the next question, it can thank the answer to the previous question.
-#     """
-#     return model.generate_content(prompt).text.strip()
 
 #Generate content wih Google gemini
 def generate_language(input):
@@ -99,8 +77,6 @@ furhat.set_voice(name='Joanna')
 # Load questions
 interview_session = InterviewSession("questions.json")
 
-#TEST SCENARIO
-
 # Greeting
 neutral_intro_prompt = """
 You are a neutral, emotionless social robot conducting a structured check-in with a university student.
@@ -117,18 +93,6 @@ furhat.say(text=generate_language(neutral_intro_prompt), blocking=True)
 
 # subtle_smile()
 while True:
-    # ask question
-    # furhat.say(text=generate_language("How are you feeling today?"), blocking=True)
-    #Get user input
-    # result = furhat.listen()
-    # if result.message == "":
-    #     result.message = "nothing"
-    # print("User said: ", result.message)
-    
-    # question = itnerview_session.next()
-    # result.message -> gemini -> response -> furhat.StopAsyncIteration
-    # then
-    # next question ...
     
     current_q = interview_session.get_current_question()
     if current_q is None:
@@ -136,8 +100,6 @@ while True:
         break
     
     print(f"\nQuestion: {current_q}")
-    # for i, option in enumerate(current_q['options']):
-    #     print(f"{i + 1}. {option}")
     
     furhat.say(text=current_q, blocking=True)  
     result = furhat.listen() 

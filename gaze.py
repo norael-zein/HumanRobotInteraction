@@ -3,6 +3,10 @@ import time
 import mediapipe as mp
 from furhat_remote_api import FurhatRemoteAPI
 
+"""
+Gaze tracking during the interview with the emotional robot
+
+"""
 def start_gaze_tracking(furhat):
     mp_face_detection = mp.solutions.face_detection
     face_detection = mp_face_detection.FaceDetection(

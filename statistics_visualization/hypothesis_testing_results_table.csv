@@ -1,0 +1,13 @@
+Mood,Mean Change V1,Mean Change V2,Shapiro V1 p,Shapiro V2 p,Levene p,Test Used,Statistic,p-value,Cohen's d/Cliff's delta
+Inspired,-0.75,0.4,0.406,0.814,0.936,T-test,-1.438,0.194,-0.965
+Scared,0.75,0.0,0.103,0.325,0.364,T-test,0.723,0.493,0.485
+Excited,0.0,-0.4,0.683,0.814,0.563,T-test,0.588,0.575,0.394
+Nervous,0.0,-0.2,0.683,0.314,0.798,T-test,0.36,0.729,0.242
+Enthusiastic,-0.5,0.0,0.024,0.325,0.729,Mann-Whitney,6.0,0.338,-0.4
+Distressed,0.0,-0.6,0.683,0.046,0.853,Mann-Whitney,13.5,0.418,0.35
+Alert,-0.5,0.2,0.972,0.135,0.467,T-test,-0.882,0.407,-0.592
+Upset,0.0,-0.2,0.714,0.236,0.894,T-test,0.152,0.883,0.102
+Determined,0.0,0.2,0.161,0.0,0.15,Mann-Whitney,11.0,0.891,0.1
+Ashamed,-0.75,0.0,0.001,0.325,0.685,Mann-Whitney,4.0,0.14,-0.6
+Proud,-0.5,0.8,0.024,0.314,0.729,Mann-Whitney,2.0,0.053,-0.8
+Guilty,-0.75,0.4,0.001,0.006,0.685,Mann-Whitney,1.5,0.036,-0.85

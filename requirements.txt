@@ -1,0 +1,9 @@
+furhat-remote-api
+google-generativeai
+opencv-python
+mediapipe
+pandas
+matplotlib
+seaborn
+scipy
+numpy

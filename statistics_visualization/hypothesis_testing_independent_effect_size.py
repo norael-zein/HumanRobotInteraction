@@ -81,3 +81,4 @@ for mood_col in mood_cols:
 #Results
 results_df = pd.DataFrame(test_results)
 print(results_df)
+results_df.to_excel("results_table.xlsx", index=False)

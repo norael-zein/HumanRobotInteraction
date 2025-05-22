@@ -16,7 +16,7 @@ common_ids = before.index.intersection(after.index)
 before = before.loc[common_ids]
 after = after.loc[common_ids]
 
-#Select moods
+#Select emotional states
 mood_cols = [col for col in df.columns if col.startswith("I feel:")]
 
 #Calculate difference
@@ -28,10 +28,10 @@ change = change.reset_index()
 df_long_gender = change.melt(
     id_vars=["Base ID", "Version", "Gender"],
     value_vars=mood_cols,
-    var_name="Mood",
-    value_name="Mood Change"
+    var_name="Emotional state",
+    value_name="Emotional state Change"
 )
-df_long_gender["Mood"] = df_long_gender["Mood"].str.replace("I feel: ", "").str.strip()
+df_long_gender["Emotional state"] = df_long_gender["Emotional state"].str.replace("I feel: ", "").str.strip()
 
 def plot_mood_change_by_gender(data, version, gender):
     subset = data[(data["Version"] == version) & (data["Gender"] == gender)]
@@ -40,20 +40,22 @@ def plot_mood_change_by_gender(data, version, gender):
     plt.figure(figsize=(10, 6))
     ax = sns.barplot(
         data=subset,
-        x="Mood",
-        y="Mood Change",
+        x="Emotional state",
+        y="Emotional state Change",
         estimator=np.mean,
         ci=None
     )
     plt.axhline(0, color='black', linestyle='--')
-    plt.title(f"Average mood Change — {gender} — {version}")
-    plt.ylabel("Mean Mood Change (After - Before)")
+    plt.title(f"Average Change in Emotional state — {gender} — {version}")
+    plt.ylabel("Mean Change Emotional state (After - Before)")
     plt.xticks(rotation=45, ha='right')
     for bar in ax.patches:
         height = bar.get_height()
         ax.text(bar.get_x() + bar.get_width() / 2, height,
                 f"{height:.2f}", ha='center', va='bottom' if height > 0 else 'top')
     plt.tight_layout()
+    filename = f"emotional_state_change_{version}_{gender}.png".replace(" ", "_")
+    plt.savefig(filename)
     plt.show()
 
 #Graphs
