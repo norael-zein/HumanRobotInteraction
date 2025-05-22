@@ -2,7 +2,7 @@ import pandas as pd
 import seaborn as sns
 import matplotlib.pyplot as plt
 """
-Correlations betwee mood changes within each group
+Correlations between changes in emotional state within each group
 """
 #Load data
 df = pd.read_csv("data.csv", sep=';')
@@ -34,8 +34,10 @@ for version in ["Version 1", "Version 2"]:
 
     plt.figure(figsize=(10, 8))
     sns.heatmap(corr_matrix, annot=True, cmap="coolwarm", fmt=".2f")
-    plt.title(f"Correlation of Mood Changes — {version}")
+    plt.title(f"Correlation of Changes in Emotional state after interview — {version}")
     plt.xticks(rotation=45, ha='right')
     plt.yticks(rotation=0)
     plt.tight_layout()
+    filename = f"correlation_{version}.png".replace(" ", "_")
+    plt.savefig(filename)
     plt.show()

@@ -18,9 +18,6 @@ def get_key():
                   _, value = line.split('=')
                   os.environ['GEMINI_API_KEY'] = value.strip()
       return os.getenv('GEMINI_API_KEY')
-#def get_key():
-#   return os.getenv('GEMINI_API_KEY')
-
 
 #Persona 
 def get_persona():
@@ -184,8 +181,6 @@ gaze_thread.start()
 # Load questions
 interview_session = InterviewSession("questions.json")
 
-#TEST SCENARIO
-
 # Greeting
 intro_prompt = """
 Begin the conversation in your role as a warm, empathetic, non-judgmental social robot.
@@ -194,28 +189,13 @@ Do not ask any questions yet.
 """
 furhat.say(text=generate_language(intro_prompt), blocking=True)
 subtle_smile()
-while True:
-    # ask question
-    # furhat.say(text=generate_language("How are you feeling today?"), blocking=True)
-    #Get user input
-    # result = furhat.listen()
-    # if result.message == "":
-    #     result.message = "nothing"
-    # print("User said: ", result.message)
-    
-    # question = itnerview_session.next()
-    # result.message -> gemini -> response -> furhat.StopAsyncIteration
-    # then
-    # next question ...
-    
+while True:    
     current_q = interview_session.get_current_question()
     if current_q is None:
         print("\n--- Interview Finished ---")
         break
     
     print(f"\nQuestion: {current_q}")
-    # for i, option in enumerate(current_q['options']):
-    #     print(f"{i + 1}. {option}")
     
     furhat.say(text=current_q, blocking=True)  
     random.choice([relaxed_blink, encouraging_nod, listen_nod_response, listen_smile_response])() 
@@ -224,7 +204,6 @@ while True:
     if result.message == "":
         result.message = "nothing"
     print("User said: ", result.message)
-    # choice_index = select_answer(current_q, result.message)
     interview_session.record_answer(result.message)
 
 
@@ -245,7 +224,7 @@ while True:
     furhat.say(text=generate_response(current_q, result.message, answer_score), blocking=True)
     
     furhat.say(text=generate_move_one_on(), blocking=True)
-    # save the answer
+    #save the answer
     interview_session.save_session("session_results.json")
             
     
